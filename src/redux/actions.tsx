@@ -86,7 +86,7 @@ export const deleteEmployeeFailure = (error) => ({
 
 // {************************************Get Single Employee*****************************************************************}
 
-export const getSingleEmployee = (employeeId: string) => ({
+export const getSingleEmployee = (employeeId: number) => ({
   type: GET_SINGLE_EMPLOYEE,
   payload: employeeId,
 });

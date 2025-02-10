@@ -7,24 +7,29 @@ import { MdDelete } from "react-icons/md";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Loader from "../../assets/Loading.gif";
 
 import { InputAdornment, TextField } from "@mui/material";
 import {
   deleteEmployeeRequest,
   getEmployeeRequest,
+  getSingleEmployee,
   searchEmployee,
 } from "../../redux/actions.tsx";
 
 const HomePage = () => {
+  const navigate=useNavigate();
   const dispatch = useDispatch();
   const employeeData = useSelector(
     (state: any) => state.employee.filteredEmployeeData
   );
+
   const employeeDataLoading = useSelector(
     (state: any) => state.employee.employeeGetLoading
   );
 
+  
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -41,6 +46,13 @@ const HomePage = () => {
   const handleDelete = (id: number) => {
     dispatch(deleteEmployeeRequest(id));
   };
+  const handleEdit=(id:number)=>{
+
+    dispatch(getSingleEmployee(id));
+     navigate("/addEmployee")
+
+
+  }
 
   return (
     <div>
@@ -112,7 +124,14 @@ const HomePage = () => {
                       <td>{elem.last_name}</td>
                       <td>{elem.email}</td>
                       <td>
-                        <CiEdit size={24} />
+                        <CiEdit size={24}
+                         style={{
+                          cursor: "pointer",
+                          zIndex: 101,
+                          position: "relative",
+                          pointerEvents: "auto",
+                        }}
+                        onClick={()=>handleEdit(index+1)} />
                       </td>
                       <td style={{ zIndex: 100 }}>
                         <MdDelete
