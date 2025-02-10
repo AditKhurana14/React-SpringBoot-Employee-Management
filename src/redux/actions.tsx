@@ -1,4 +1,5 @@
 import {
+  CLEAR_SINGLE_EMPLOYEE,
   DELETE_EMPLOYEE_FAILURE,
   DELETE_EMPLOYEE_REQUEST,
   DELETE_EMPLOYEE_SUCCESS,
@@ -101,4 +102,9 @@ export const getSingleEmployeeFailure = (error: string) => ({
   payload: error,
 });
 
+// {****************************************Clean Autopoulate***************************************************}
+
+export const cleanSingleEmployee = () => ({
+  type: CLEAR_SINGLE_EMPLOYEE,
+});
 

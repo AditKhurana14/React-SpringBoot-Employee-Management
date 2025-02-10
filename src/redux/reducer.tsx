@@ -14,6 +14,7 @@ import {
   GET_SINGLE_EMPLOYEE,
   GET_SINGLE_EMPLOYEE_SUCCESS,
   GET_SINGLE_EMPLOYEE_FAILURE,
+  CLEAR_SINGLE_EMPLOYEE,
 } from "./constants.tsx";
 import { showErrorToast } from "../util/toastUtil.js";
 
@@ -114,6 +115,10 @@ const employeeReducer = (state = initialState, action) =>
 
       case EMPLOYEE_REGISTER_SUCCESS_MSG_REMOVE:
         draft.employeeRegisterSuccessMsg = null;
+
+        case CLEAR_SINGLE_EMPLOYEE:
+          draft.employeeSingleData=null;
+
 
         break;
 
