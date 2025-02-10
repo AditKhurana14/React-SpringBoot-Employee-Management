@@ -51,3 +51,21 @@
     }
 
   };
+
+  export const getSingleEmployee = async (data) => {
+    const response = await fetch(`http://localhost:8080/getemployee/${data}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to Get Single employee');
+    }
+    else{
+      const data = await response.json();
+      return data
+
+    }
+
+  };
