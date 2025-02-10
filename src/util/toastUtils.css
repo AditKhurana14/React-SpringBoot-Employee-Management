@@ -1,0 +1,9 @@
+/* custom-toast.css */
+.Toastify__progress-bar--success {
+    background-color: #67833E !important; /* Change this to your desired progress bar color */
+}
+
+.custom-toast-container {
+    background-color: #829c5c !important; /* Change this to your desired background color */
+    color: #ffffff !important; /* Change text color if needed */
+}
