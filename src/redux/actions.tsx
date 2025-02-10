@@ -9,6 +9,9 @@ import {
   GET_EMPLOYEE_FAILURE,
   GET_EMPLOYEE_REQUEST,
   GET_EMPLOYEE_SUCCESS,
+  GET_SINGLE_EMPLOYEE,
+  GET_SINGLE_EMPLOYEE_FAILURE,
+  GET_SINGLE_EMPLOYEE_SUCCESS,
   SEARCH_EMPLOYEE,
 } from "./constants.tsx";
 
@@ -76,6 +79,25 @@ export const deleteEmployeeSuccess = (data) => ({
 
 export const deleteEmployeeFailure = (error) => ({
   type: DELETE_EMPLOYEE_FAILURE,
+  payload: error,
+});
+
+
+
+// {************************************Get Single Employee*****************************************************************}
+
+export const getSingleEmployee = (employeeId: string) => ({
+  type: GET_SINGLE_EMPLOYEE,
+  payload: employeeId,
+});
+
+export const getSingleEmployeeSuccess = (employeeData: any) => ({
+  type: GET_SINGLE_EMPLOYEE_SUCCESS,
+  payload: employeeData,
+});
+
+export const getSingleEmployeeFailure = (error: string) => ({
+  type: GET_SINGLE_EMPLOYEE_FAILURE,
   payload: error,
 });
 
