@@ -69,3 +69,22 @@
     }
 
   };
+
+  export const updateEmployeefun = async (id: string, updatedData: any) => {
+    const response = await fetch(`http://localhost:8080/updateEmployee/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedData),  
+
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to Update employee');
+    }
+    else{
+      const data = await response.json();
+      return data
+
+    }
+
+  };

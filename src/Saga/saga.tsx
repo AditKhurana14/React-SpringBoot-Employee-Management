@@ -1,8 +1,8 @@
 
 import { takeEvery, call, put } from 'redux-saga/effects';
 
-import { EMPLOYEE_REGISTER_REQUEST, EMPLOYEE_REGISTER_SUCCESS, EMPLOYEE_REGISTER_FAILURE, GET_EMPLOYEE_REQUEST, GET_EMPLOYEE_SUCCESS, GET_EMPLOYEE_FAILURE, DELETE_EMPLOYEE_REQUEST, DELETE_EMPLOYEE_SUCCESS, DELETE_EMPLOYEE_FAILURE, GET_SINGLE_EMPLOYEE, GET_SINGLE_EMPLOYEE_SUCCESS, GET_SINGLE_EMPLOYEE_FAILURE } from '../redux/constants.tsx';
-import { deleteEmployeeData, getEmployeeData, getSingleEmployee, registerEmployeeAPI } from './api.tsx';
+import { EMPLOYEE_REGISTER_REQUEST, EMPLOYEE_REGISTER_SUCCESS, EMPLOYEE_REGISTER_FAILURE, GET_EMPLOYEE_REQUEST, GET_EMPLOYEE_SUCCESS, GET_EMPLOYEE_FAILURE, DELETE_EMPLOYEE_REQUEST, DELETE_EMPLOYEE_SUCCESS, DELETE_EMPLOYEE_FAILURE, GET_SINGLE_EMPLOYEE, GET_SINGLE_EMPLOYEE_SUCCESS, GET_SINGLE_EMPLOYEE_FAILURE, UPDATE_EMPLOYEE_REQUEST, UPDATE_EMPLOYEE_SUCCESS, UPDATE_EMPLOYEE_FAILURE } from '../redux/constants.tsx';
+import { deleteEmployeeData, getEmployeeData, getSingleEmployee, registerEmployeeAPI, updateEmployeefun } from './api.tsx';
 import { showSuccessToast } from "../util/toastUtil";
 
 
@@ -59,6 +59,18 @@ function* GetSingleEmployee(action) {
   }
 }
 
+function* updateEmployee(action) {
+  try {
+    const employeeUpdatedData = yield call( updateEmployeefun,action.payload.id,action.payload.payload);  // API call
+
+    yield put({ type:  UPDATE_EMPLOYEE_SUCCESS, payload: employeeUpdatedData });
+
+  } catch (error) {
+    yield put({ type: UPDATE_EMPLOYEE_FAILURE, payload: error.message });
+  }
+}
+
+
 
 
 
@@ -69,6 +81,8 @@ export function* watchEmployeeRegistration() {
   yield takeEvery(GET_EMPLOYEE_REQUEST, getEmployeeSaga);
   yield takeEvery(DELETE_EMPLOYEE_REQUEST, DeleteEmployee);
   yield takeEvery(GET_SINGLE_EMPLOYEE, GetSingleEmployee);
+  yield takeEvery(UPDATE_EMPLOYEE_REQUEST, updateEmployee);
+
 
 
 

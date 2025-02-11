@@ -14,6 +14,9 @@ import {
   GET_SINGLE_EMPLOYEE_FAILURE,
   GET_SINGLE_EMPLOYEE_SUCCESS,
   SEARCH_EMPLOYEE,
+  UPDATE_EMPLOYEE_FAILURE,
+  UPDATE_EMPLOYEE_REQUEST,
+  UPDATE_EMPLOYEE_SUCCESS,
 } from "./constants.tsx";
 
 // {*********************************Register User**************************************************}
@@ -106,5 +109,23 @@ export const getSingleEmployeeFailure = (error: string) => ({
 
 export const cleanSingleEmployee = () => ({
   type: CLEAR_SINGLE_EMPLOYEE,
+});
+
+
+// {******************************************Update requst****************************************************************}
+export const updateEmployeeRequest = (id,payload) => ({
+  type: UPDATE_EMPLOYEE_REQUEST,
+  payload:{id,payload},
+
+});
+
+export const updateEmployeeSuccess = (employeeData: any) => ({
+  type: UPDATE_EMPLOYEE_SUCCESS,
+  payload: employeeData,
+});
+
+export const updateEmployeeFailure = (error: string) => ({
+  type: UPDATE_EMPLOYEE_FAILURE,
+  payload: error,
 });
 

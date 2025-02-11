@@ -15,6 +15,9 @@ import {
   GET_SINGLE_EMPLOYEE_SUCCESS,
   GET_SINGLE_EMPLOYEE_FAILURE,
   CLEAR_SINGLE_EMPLOYEE,
+  UPDATE_EMPLOYEE_REQUEST,
+  UPDATE_EMPLOYEE_SUCCESS,
+  UPDATE_EMPLOYEE_FAILURE,
 } from "./constants.tsx";
 import { showErrorToast } from "../util/toastUtil.js";
 
@@ -41,6 +44,10 @@ const initialState = {
   employeeSingleData:null,
   employeeSingleLoading:true,
   employeeSingleError:null,
+
+  employeeUpdateData:null,
+  employeeUpdateLoading:true,
+  employeeUpdateError:null,
 
 };
 
@@ -180,6 +187,32 @@ const employeeReducer = (state = initialState, action) =>
           
   
           break;
+
+          // {*********************************Employee Update******************************************************}
+
+          case UPDATE_EMPLOYEE_REQUEST:
+            draft.employeeUpdateLoading = true;
+            draft.employeeUpdateData = action.payload;
+            draft.employeeUpdateError = null;
+    
+            break;
+    
+          case UPDATE_EMPLOYEE_SUCCESS:
+            draft.employeeUpdateLoading = false;
+            draft.employeeUpdateData = action.payload;
+    
+            draft.employeeUpdateError = null;
+    
+            break;
+    
+          case UPDATE_EMPLOYEE_FAILURE:
+            draft.employeeUpdateLoading = false;
+            draft.employeeUpdateData = null;
+            draft.employeeUpdateError = action.payload;
+            
+    
+            break;
+
 
       default:
         return draft;
