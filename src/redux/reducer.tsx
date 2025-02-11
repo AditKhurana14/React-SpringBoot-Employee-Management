@@ -19,7 +19,7 @@ import {
   UPDATE_EMPLOYEE_SUCCESS,
   UPDATE_EMPLOYEE_FAILURE,
 } from "./constants.tsx";
-import { showErrorToast } from "../util/toastUtil.js";
+import { showErrorToast, showSuccessToast } from "../util/toastUtil.js";
 
 const initialState = {
   loading: false,
@@ -48,6 +48,9 @@ const initialState = {
   employeeUpdateData:null,
   employeeUpdateLoading:true,
   employeeUpdateError:null,
+  employeeUpdateSuccessMsg:null,
+
+  employeeEditFlow:false
 
 };
 
@@ -122,9 +125,12 @@ const employeeReducer = (state = initialState, action) =>
 
       case EMPLOYEE_REGISTER_SUCCESS_MSG_REMOVE:
         draft.employeeRegisterSuccessMsg = null;
+        draft.employeeUpdateSuccessMsg=null;
 
         case CLEAR_SINGLE_EMPLOYEE:
           draft.employeeSingleData=null;
+          draft.employeeEditFlow=false;
+
 
 
         break;
@@ -169,12 +175,15 @@ const employeeReducer = (state = initialState, action) =>
           draft.employeeSingleLoading = true;
           draft.employeeSingleData = null;
           draft.employeeSingleError = null;
+          draft.employeeEditFlow=true;
+
   
           break;
   
         case GET_SINGLE_EMPLOYEE_SUCCESS:
           draft.employeeSingleLoading = false;
           draft.employeeSingleData = action.payload;
+          draft.employeeEditFlow=true
   
           draft.employeeSingleError = null;
   
@@ -184,6 +193,8 @@ const employeeReducer = (state = initialState, action) =>
           draft.employeeSingleLoading = false;
           draft.employeeSingleData = null;
           draft.employeeSingleError = action.payload;
+          draft.employeeEditFlow=false;
+
           
   
           break;
@@ -199,9 +210,11 @@ const employeeReducer = (state = initialState, action) =>
     
           case UPDATE_EMPLOYEE_SUCCESS:
             draft.employeeUpdateLoading = false;
-            draft.employeeUpdateData = action.payload;
+            draft.employeeUpdateData = null;
     
             draft.employeeUpdateError = null;
+            draft.employeeUpdateSuccessMsg=action.payload.message
+            showSuccessToast(draft.employeeUpdateSuccessMsg)
     
             break;
     

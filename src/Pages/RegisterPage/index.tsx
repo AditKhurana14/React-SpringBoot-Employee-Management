@@ -8,6 +8,7 @@ import {
   getEmployeeRequest,
   registerEmployeeRequest,
   setEmployeeRegisterSuccessMsg,
+  updateEmployeeRequest,
 } from "../../redux/actions.tsx";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -27,11 +28,26 @@ const Index = () => {
   const employeeSingleloading = useSelector(
     (state: any) => state.employee.employeeSingleLoading
   );
+
+  const employeeEditFlow = useSelector(
+    (state: any) => state.employee.employeeEditFlow
+  );
+
+  const employeeUpdateSuccessMsg = useSelector(
+    (state: any) => state.employee.employeeUpdateSuccessMsg
+  );
+
   const { control, handleSubmit,reset } = useForm();
 
   const onSubmit = (data: any) => {
     console.log("Form Data:", data);
-    dispatch(registerEmployeeRequest(data));
+    if(employeeEditFlow==true){
+      dispatch(updateEmployeeRequest(employeeSingleData.id,data));
+
+
+    }else{
+      dispatch(registerEmployeeRequest(data))
+    }
   };
 
 
@@ -44,7 +60,15 @@ const Index = () => {
         dispatch(setEmployeeRegisterSuccessMsg());
       }, 2000);
     }
-  }, [employeeRegisterSuccessMsg, dispatch, navigate]);
+    else if (employeeUpdateSuccessMsg ==="Employee Updated") {
+      setTimeout(() => {
+        navigate("/");
+        dispatch(getEmployeeRequest());
+
+        dispatch(setEmployeeRegisterSuccessMsg());
+      }, 2000);
+    }
+  }, [employeeRegisterSuccessMsg,employeeUpdateSuccessMsg, dispatch, navigate]);
 
 
   useEffect(() => {
@@ -124,9 +148,15 @@ const Index = () => {
               />
             </div>
             <div className="submit-btn-container">
+              {!employeeEditFlow ? (
               <button className="btn-submit" type="submit">
+               
                 Submit
               </button>
+               ):( <button className="btn-submit" type="submit">
+               
+                Update
+              </button>)}
             </div>
           </form>
         </div>
