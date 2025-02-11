@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+//@ts-ignore
 import Searchicon from '../../assets/svg/search.svg'
 import "./style.css";
 import { useNavigate } from "react-router-dom";

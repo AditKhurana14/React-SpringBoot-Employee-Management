@@ -30,10 +30,20 @@ function* getEmployeeSaga(action) {
 
 function* DeleteEmployee(action) {
   try {
-    const employeeDeleteData = yield call( deleteEmployeeData,action.payload);  // API call
-    yield put({ type:  DELETE_EMPLOYEE_SUCCESS, payload: employeeDeleteData });
+    console.log("Deleting Employee with ID:", action.payload);
+    
+    const employeeDeleteData = yield call(deleteEmployeeData, action.payload);
+    console.log("API Response in Saga:", employeeDeleteData); // Check if it's undefined
 
+    if (!employeeDeleteData) {
+      throw new Error("API returned undefined");
+    }
+    
+   
+
+    yield put({ type: DELETE_EMPLOYEE_SUCCESS, payload: employeeDeleteData });
   } catch (error) {
+    console.error("Delete Employee Error:", error.message);
     yield put({ type: DELETE_EMPLOYEE_FAILURE, payload: error.message });
   }
 }
@@ -41,6 +51,7 @@ function* DeleteEmployee(action) {
 function* GetSingleEmployee(action) {
   try {
     const employeeSingleData = yield call( getSingleEmployee,action.payload);  // API call
+
     yield put({ type:  GET_SINGLE_EMPLOYEE_SUCCESS, payload: employeeSingleData });
 
   } catch (error) {

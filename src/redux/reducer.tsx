@@ -133,23 +133,19 @@ const employeeReducer = (state = initialState, action) =>
         case DELETE_EMPLOYEE_SUCCESS:
           draft.employeeDeleteLoading = false;
           draft.error = null;
-          draft.employeeDeleteIdData = action.payload.employee.id; // The ID of the deleted employee
-          draft.employeeDeleteSuccessMsg = action.payload.message; // Success message
         
-          // Filter out the deleted employee from employeeGetData
-          draft.employeeGetData = draft.employeeGetData.filter(
-            // @ts-ignore
-
-            (elem) => elem.id !== draft.employeeDeleteIdData
-          );
-
-          draft.filteredEmployeeData=draft.employeeGetData
+          console.log("DELETE_EMPLOYEE_SUCCESS Payload:", action.payload);
         
-          return draft;
-
-        
-        
-        break;
+          if (typeof action.payload === "string") {
+            draft.employeeDeleteSuccessMsg = action.payload; // Store message
+            draft.employeeGetData = draft.employeeGetData.filter(
+              //@ts-ignore
+              (elem) => elem.id !== draft.employeeDeleteIdData
+            );
+            draft.filteredEmployeeData = draft.employeeGetData;
+          } 
+          break;
+      
 
       case DELETE_EMPLOYEE_FAILURE:
         draft.employeeDeleteLoading = false;

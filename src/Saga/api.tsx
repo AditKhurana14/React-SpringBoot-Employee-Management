@@ -37,16 +37,16 @@
   export const deleteEmployeeData = async (data) => {
     const response = await fetch(`http://localhost:8080/deleteEmployee/${data}`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
 
     });
   
-    if (!response.ok) {
+    if (!response.ok ) {
       throw new Error('Failed to Delete employee');
     }
     else{
       const data = await response.json();
-      return data
+      return data.message
+    
 
     }
 
